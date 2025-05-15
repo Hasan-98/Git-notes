@@ -8,7 +8,7 @@ const fetchGists = async () => {
     try {
         const response = await fetch(`https://api.github.com/gists/public?per_page=50`, {
             headers: {
-                'Authorization': process.env.REACT_APP_GITHUB_TOKEN
+                Authorization: process.env.REACT_APP_GITHUB_TOKEN
             }
         });
         const data = await response.json();
