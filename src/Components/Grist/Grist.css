@@ -1,0 +1,122 @@
+.grist {
+    padding: 20px;
+    background-color: #f9f9f9;
+}
+
+.grist__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.grist__header h1 {
+    margin: 0;
+}
+
+.grist__header--button {
+    margin-right: 10px;
+}
+
+.grist__list {
+    overflow-x: auto;
+}
+
+.grist__list--header th {
+    text-align: left;
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+}
+
+.grist__list--row td {
+    padding: 10px;
+    border-bottom: 1px solid #eee;
+}
+
+.gist__list--img {
+    display: flex;
+    align-items: center;
+}
+
+.gist__list--img img {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.gist__tag {
+    background-color: #064e3b;
+    color: white;
+    padding: 3px 8px;
+    border-radius: 4px;
+    font-size: 12px;
+}
+
+.gist__grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 15px;
+}
+
+.gist__card {
+    background-color: white;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+.gist__card--header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.gist__card--header img {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.gist__card--meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.gist__card--footer {
+    display: flex;
+    justify-content: space-between;
+}
+
+.gist__card button,
+.grist__list--row button {
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+.grist__pagination {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.grist__pagination--button {
+    margin: 0 10px;
+    padding: 5px 10px;
+    border: 1px solid #ccc;
+    background-color: white;
+    cursor: pointer;
+}
+
+.grist__pagination--input {
+    width: 50px;
+    margin: 0 10px;
+    padding: 5px;
+    text-align: center;
+    border: 1px solid #ccc;
+}

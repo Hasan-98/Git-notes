@@ -1,0 +1,19 @@
+
+.search {
+    display: flex;
+    align-items: center;
+}
+
+.search__input {
+    padding: 5px 10px;
+    margin-left: 1200px;
+    border: 1px solid #ccc;
+}
+
+.login__button {
+    padding: 8px 16px;
+    margin-left: 10px;
+    background-color: white;
+    border-radius: 4px;
+    font-size: 12px;
+}
