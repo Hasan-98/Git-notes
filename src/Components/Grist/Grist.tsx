@@ -6,11 +6,7 @@ import "./Grist.css";
 
 const fetchGists = async () => {
     try {
-        const response = await fetch(`https://api.github.com/gists/public?per_page=50`, {
-            headers: {
-                Authorization: process.env.REACT_APP_GITHUB_TOKEN
-            }
-        });
+        const response = await fetch(`https://api.github.com/gists/public?per_page=50`);
         const data = await response.json();
         return data;
     } catch (error) {
