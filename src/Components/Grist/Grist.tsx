@@ -29,12 +29,12 @@ export default function Grist() {
             keyword: Object.keys(gist.files)[0]?.split('.').pop(),
             updatedAt: new Date(gist.updated_at),
         }));
-
-      
+        setGists(grist);
+        setIsLoading(false);
     };
     useEffect(() => {
         loadGists();
-    });
+    }, [currentPage]);
 
     const handlePreviousPage = () => {
         if (currentPage > 1) {
