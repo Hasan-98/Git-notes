@@ -1,8 +1,16 @@
-import React, { useState, useEffect } from 'react';
-import "./Grist.css"
-const fetchGists = async (page = 1) => {
+import { useState, useEffect, useMemo } from 'react';
+import GristGrid from './GristGrid';
+import GristList from './GristList';
+import Pagination from './Pagination';
+import "./Grist.css";
+
+const fetchGists = async () => {
     try {
-        const response = await fetch(`https://api.github.com/gists/public?page=${page}&per_page=8`);
+        const response = await fetch(`https://api.github.com/gists/public?per_page=50`, {
+            headers: {
+                'Authorization': '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'
+            }
+        });
         const data = await response.json();
         return data;
     } catch (error) {
@@ -12,160 +20,83 @@ const fetchGists = async (page = 1) => {
 };
 
 export default function Grist() {
-    const [gists, setGists] = useState([]);
-    const [isLoading, setIsLoading] = useState(true);
+    const [allGists, setAllGists] = useState<any>([]);
+    const [search, setSearch] = useState('');
     const [currentPage, setCurrentPage] = useState(1);
-    const [totalPages, setTotalPages] = useState(14);
     const [viewMode, setViewMode] = useState('list');
-    const loadGists = async () => {
-        setIsLoading(true);
-        const data = await fetchGists(currentPage);
 
-        const grist = data.map((gist: any) => ({
+    const pageSize = 8;
+    const loadGists = async () => {
+        const data = await fetchGists();
+
+        const formatted = data.map((gist: any) => ({
             id: gist.id,
             avatarUrl: gist.owner?.avatar_url,
             username: gist.owner?.login,
             notebookName: Object.keys(gist.files)[0],
             keyword: Object.keys(gist.files)[0]?.split('.').pop(),
             updatedAt: new Date(gist.updated_at),
+            description: gist.description
         }));
-        setGists(grist);
-        setIsLoading(false);
+        setAllGists(formatted);
     };
+
+
     useEffect(() => {
-        loadGists();
-    }, [currentPage]);
+        loadGists();    
+    }, []);
 
-    const handlePreviousPage = () => {
-        if (currentPage > 1) {
-            setCurrentPage(currentPage - 1);
-        }
-    };
+    const filteredGists = useMemo(() => {
+        return allGists.filter((gist: any) => {
+            return (
+                gist.notebookName.toLowerCase().includes(search.toLowerCase()) ||
+                gist.description?.toLowerCase().includes(search.toLowerCase()) ||
+                gist.username?.toLowerCase().includes(search.toLowerCase())
+            );
+        });
+    }, [search, allGists]);
 
-    const handleNextPage = () => {
-        if (currentPage < totalPages) {
-            setCurrentPage(currentPage + 1);
-        }
-    };
-    const formatUpdatedTime = (date: any) => {
-        return `Last updated a few hours ago`;
-    };
-
-    const displayGists = gists;
+    const totalPages = Math.ceil(filteredGists.length / pageSize);
+    const paginatedGists = filteredGists.slice(
+        (currentPage - 1) * pageSize,
+        currentPage * pageSize
+    );
 
     return (
-        <>
-            <div className="grist">
-                <div className="grist__header">
-                    <h1>Public Gists</h1>
-                    <div>
-                        <button
-                            className='grist__header--button'
-                            onClick={() => setViewMode('grid')}
-                        >
-                            Grid
-                        </button>
-                        <button
-                            onClick={() => setViewMode('list')}
-                        >
-                            List
-                        </button>
-                    </div>
-                </div>
-
-                {viewMode === 'list' ? (
-                    <div className="grist__list">
-                        <table style={{ width: '100%', borderCollapse: 'collapse' }}>
-                            <thead className="grist__list--header">
-                                <tr>
-                                    <th className="grist__list--col">Name</th>
-                                    <th className="grist__list--col">Notebook Name</th>
-                                    <th className="grist__list--col">Keyword</th>
-                                    <th className="grist__list--col">Updated</th>
-                                    <th></th>
-                                    <th></th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {displayGists.map((gist: any) => (
-                                    <tr key={gist.id} className="grist__list--row">
-                                        <td className="gist__list--img">
-                                            <img
-                                                src={gist.avatarUrl}
-                                                alt={gist.username}
-                                            />
-                                            <span>{gist.username}</span>
-                                        </td>
-                                        <td>{gist.notebookName}</td>
-                                        <td>
-                                            <span className="gist__tag">Keyword</span>
-                                        </td>
-                                        <td>{formatUpdatedTime(gist.updatedAt)}</td>
-                                        <td>
-                                            <button>Fork</button>
-                                        </td>
-                                        <td>
-                                            <button>Star</button>
-                                        </td>
-                                    </tr>
-                                ))}
-                            </tbody>
-                        </table>
-                    </div>
-                ) : (
-                    <div className="gist__grid">
-                        {displayGists.map((gist: any) => (
-                            <div key={gist.id} className="gist__card">
-                                <div className="gist__card--header">
-                                    <img
-                                        src={gist.avatarUrl}
-                                        alt={gist.username}
-                                    />
-                                    <span>{gist.username}</span>
-                                </div>
-                                <div>{gist.notebookName}</div>
-                                <div className="gist__card--meta">
-                                    <span className="gist__tag">Keyword</span>
-                                    <div>{formatUpdatedTime(gist.updatedAt)}</div>
-                                </div>
-                                <div className="gist__card--footer">
-                                    <button>Fork</button>
-                                    <button>Star</button>
-                                </div>
-                            </div>
-                        ))}
-                    </div>
-                )}
-                <div className="grist__pagination">
-                    <button
-                        className='grist__pagination--button'
-                        onClick={handlePreviousPage}
-                        disabled={currentPage === 1}
-                    >
-                        &lt;
-                    </button>
-                    <span>Page</span>
+        <div className="grist">
+            <div className="grist__header">
+                <h1>Public Gists</h1>
+                <div className="grist__header--controls">
                     <input
-                        className='grist__pagination--input'
-                        type="number"
-                        value={currentPage}
+                        type="text"
+                        placeholder="Search Gists"
+                        value={search}
                         onChange={(e) => {
-                            const page = parseInt(e.target.value);
-                            if (!isNaN(page) && page > 0 && page <= totalPages) {
-                                setCurrentPage(page);
-                            }
+                            setSearch(e.target.value);
+                            setCurrentPage(1);
                         }}
+                        className="search__input"
                     />
-                    <span>of {totalPages}</span>
                     <button
-                        className='grist__pagination--button'
-                        onClick={handleNextPage}
-                        disabled={currentPage === totalPages}
+                        className='grist__header--button'
+                        onClick={() => setViewMode('grid')}
                     >
-                        &gt;
+                        Grid
                     </button>
+                    <button onClick={() => setViewMode('list')}>List</button>
                 </div>
             </div>
-        </>
+            {viewMode === 'list' ? (
+                <GristList gists={paginatedGists} />
+            ) : (
+                <GristGrid gists={paginatedGists} />
+            )}
+
+            <Pagination
+                currentPage={currentPage}
+                totalPages={totalPages}
+                onPageChange={(page) => setCurrentPage(page)}
+            />
+        </div>
     );
 }
