@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import "./Grist.css";
 
 export default function GristGrid({ gists }: { gists: any[] }) {
@@ -11,7 +12,9 @@ export default function GristGrid({ gists }: { gists: any[] }) {
                         <img src={gist.avatarUrl} alt={gist.username} />
                         <span>{gist.username}</span>
                     </div>
-                    <div>{gist.notebookName}</div>
+                    <div>
+                        <Link to={`/gist/${gist.id}`} state={{ gist }} > {gist.notebookName}</Link>
+                    </div>
                     <div className="gist__card--meta">
                         <span className="gist__tag">{gist.keyword}</span>
                         <div>{formatUpdatedTime(gist.updatedAt)}</div>

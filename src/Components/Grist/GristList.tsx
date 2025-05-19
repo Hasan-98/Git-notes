@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import "./Grist.css";
 export default function GristList({ gists }: { gists: any[] }) {
     const formatUpdatedTime = (date: Date) => "Last updated a few hours ago";
@@ -22,7 +23,9 @@ export default function GristList({ gists }: { gists: any[] }) {
                                 <img src={gist.avatarUrl} alt={gist.username} />
                                 <span>{gist.username}</span>
                             </td>
-                            <td>{gist.notebookName}</td>
+                            <td>
+                                <Link to={`/gist/${gist.id}`} state={{ gist }} > {gist.notebookName}</Link>
+                            </td>
                             <td><span className="gist__tag">{gist.keyword}</span></td>
                             <td>{formatUpdatedTime(gist.updatedAt)}</td>
                             <td><button>Fork</button></td>

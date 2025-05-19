@@ -1,13 +1,16 @@
-import './App.css'
-import Grist from './Components/Grist/Grist'
-import Header from './Components/Header/Header'
+import { Routes, Route } from 'react-router-dom'
+import LandingPage from './Components/LandingPage'
+import GistDetail from './Components/Grist/GristDetails'
+import Profile from './Components/Profile/Profile'
 function App() {
-
-  
   return (
-    <>  
-      <Header />
-      <Grist />
+    <>
+
+      <Routes>
+        <Route path="/" element={<LandingPage />} />
+        <Route path="/gist/:id" element={<GistDetail />} />
+        <Route path="/profile" element={<Profile />} />
+      </Routes>
     </>
   )
 }
