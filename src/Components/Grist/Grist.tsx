@@ -2,7 +2,7 @@ import { useState, useEffect, useMemo } from 'react';
 import GristGrid from './GristGrid';
 import GristList from './GristList';
 import Pagination from './Pagination';
-import "./Grist.css";
+import styles from "./Grist.module.css";
 
 const fetchGists = async () => {
     try {
@@ -59,10 +59,10 @@ export default function Grist() {
     );
 
     return (
-        <div className="grist">
-            <div className="grist__header">
+        <div className={styles.grist}>
+            <div className={styles["grist__header"]}>
                 <h1>Public Gists</h1>
-                <div className="grist__header--controls">
+                <div className={styles["grist__header--controls"]}>
                     <input
                         type="text"
                         placeholder="Search Gists"
@@ -71,10 +71,10 @@ export default function Grist() {
                             setSearch(e.target.value);
                             setCurrentPage(1);
                         }}
-                        className="search__input"
+                        className={styles["search__input"]}
                     />
                     <button
-                        className='grist__header--button'
+                        className={styles["grist__header--button"]}
                         onClick={() => setViewMode('grid')}
                     >
                         Grid

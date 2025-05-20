@@ -1,4 +1,5 @@
-import "./Grist.css";
+import styles from "./Grist.module.css";
+
 type Props = {
   currentPage: number;
   totalPages: number;
@@ -19,9 +20,9 @@ export default function Pagination({ currentPage, totalPages, onPageChange }: Pr
   };
 
   return (
-    <div className="grist__pagination">
+    <div className={styles["grist__pagination"]}>
       <button
-        className="grist__pagination--button"
+        className={styles["grist__pagination--button"]}
         onClick={handlePrevious}
         disabled={currentPage === 1}
       >
@@ -29,7 +30,7 @@ export default function Pagination({ currentPage, totalPages, onPageChange }: Pr
       </button>
       <span>Page</span>
       <input
-        className="grist__pagination--input"
+        className={styles["grist__pagination--input"]}
         type="number"
         value={currentPage}
         onChange={(e) => {
@@ -41,7 +42,7 @@ export default function Pagination({ currentPage, totalPages, onPageChange }: Pr
       />
       <span>of {totalPages}</span>
       <button
-        className="grist__pagination--button"
+        className={styles["grist__pagination--button"]}
         onClick={handleNext}
         disabled={currentPage === totalPages}
       >

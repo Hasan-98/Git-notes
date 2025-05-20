@@ -1,4 +1,4 @@
-import './Header.css';
+import styles from './Header.module.css';
 import logo from '../../../public/appLogo.png';
 import LoginWithGithub from '../../firebaseAuth';
 import { useState } from 'react';
@@ -18,23 +18,25 @@ export default function Header() {
             console.error("Login failed", error);
         }
     };
-    console.log('user in header', user)
+    
+    console.log('user in header', user);
+    
     return (
-        <header className="header">
-            <nav className="nav">
-                <img src={logo} alt="logo" className="logo" />
+        <header className={styles.header}>
+            <nav className={styles.nav}>
+                <img src={logo} alt="logo" className={styles.logo} />
                 {
                     isLoggedIn ? (
-                        <div className="profile">
+                        <div className={styles.profile}>
                             <img
                                 src={user?.avatar_url}
                                 alt="profile"
-                                className="profile-avatar"
+                                className={styles["profile-avatar"]}
                                 onClick={() => setDropdownOpen(!dropdownOpen)}
                             />
                             {dropdownOpen && (
-                                <div className="dropdown-menu">
-                                    <div className="dropdown-header">Signed in as <br /><strong>{user?.name}</strong></div>
+                                <div className={styles["dropdown-menu"]}>
+                                    <div className={styles["dropdown-header"]}>Signed in as <br /><strong>{user?.name}</strong></div>
                                     <hr />
                                     <a href="#">Your gists</a>
                                     <a href="#">Starred gists</a>
@@ -45,7 +47,7 @@ export default function Header() {
                             )}
                         </div>
                     ) : (
-                        <button onClick={handleLogin} className="header__button">Login</button>
+                        <button onClick={handleLogin} className={styles["header__button"]}>Login</button>
                     )
                 }
             </nav>
