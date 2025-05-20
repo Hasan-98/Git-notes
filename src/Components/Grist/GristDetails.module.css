@@ -1,0 +1,99 @@
+.gist-container {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 16px;
+  }
+  
+  .gist-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 16px;
+    border-bottom: 1px solid #d0d7de;
+    padding-bottom: 12px;
+  }
+  
+  .user-info {
+    display: flex;
+    align-items: center;
+  }
+  
+  .avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 12px;
+  }
+  
+  .user-details {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .username-repo {
+    font-weight: bold;
+    font-size: 16px;
+    color: #24292f;
+  }
+  
+  .separator {
+    margin: 0 4px;
+    color: #57606a;
+  }
+  
+  .creation-info,
+  .description {
+    font-size: 13px;
+    color: #57606a;
+  }
+  
+  .actions {
+    display: flex;
+    gap: 8px;
+  }
+  
+  .btn {
+    border: 1px solid #d0d7de;
+    padding: 4px 12px;
+    font-size: 14px;
+    background-color: #f6f8fa;
+    border-radius: 6px;
+    cursor: pointer;
+  }
+  
+  .btn-copy {
+    font-size: 13px;
+    padding: 2px 8px;
+    background-color: #eff3f6;
+    border: 1px solid #d0d7de;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .file-tab {
+    background-color: #f6f8fa;
+    border-bottom: 1px solid #d0d7de;
+    padding: 10px 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .file-name {
+    font-weight: 500;
+    font-size: 14px;
+  }
+  
+  .gist-content {
+    border: 1px solid #d0d7de;
+    border-radius: 6px;
+    background-color: #ffffff;
+    overflow: hidden;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+  }
+  
+  .json-view-container {
+    padding: 16px;
+    overflow-x: auto;
+  }
+  

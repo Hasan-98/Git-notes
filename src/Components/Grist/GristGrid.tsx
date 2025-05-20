@@ -1,5 +1,7 @@
 import { Link } from "react-router-dom";
 import styles from "./Grist.module.css";
+import JsonView from '@uiw/react-json-view'
+import { lightTheme } from '@uiw/react-json-view/light'
 
 export default function GristGrid({ gists }: { gists: any[] }) {
     const formatUpdatedTime = (date: Date) => "Last updated a few hours ago";
@@ -13,6 +15,7 @@ export default function GristGrid({ gists }: { gists: any[] }) {
                         <span>{gist.username}</span>
                     </div>
                     <div>
+                        <JsonView value={gist} style={lightTheme} />
                         <Link to={`/gist/${gist.id}`} state={{ gist }} > {gist.notebookName}</Link>
                     </div>
                     <div className={styles["gist__card--meta"]}>

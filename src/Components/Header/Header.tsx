@@ -3,6 +3,7 @@ import logo from '../../../public/appLogo.png';
 import LoginWithGithub from '../../firebaseAuth';
 import { useState } from 'react';
 import useAuthStore from '../../store/authStore';
+import { Link } from 'react-router-dom';
 
 export default function Header() {
     const { isLoggedIn, user, login, logout } = useAuthStore();
@@ -38,7 +39,7 @@ export default function Header() {
                                 <div className={styles["dropdown-menu"]}>
                                     <div className={styles["dropdown-header"]}>Signed in as <br /><strong>{user?.name}</strong></div>
                                     <hr />
-                                    <a href="#">Your gists</a>
+                                    <Link to="/profile" state={{ user }}>Your gists</Link>
                                     <a href="#">Starred gists</a>
                                     <a href={`https://github.com/${user?.user_name}`} target="_blank" rel="noreferrer">Your GitHub profile</a>
                                     <a href="#">Help</a>

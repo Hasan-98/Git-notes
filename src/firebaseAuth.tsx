@@ -23,7 +23,8 @@ const LoginWithGithub = async () => {
       avatar_url: result.user.photoURL,
       html_url: result.user.reloadUserInfo?.providerUserInfo?.[0]?.photoUrl ?? '',
       email: result.user.email,
-      user_name: result.user.reloadUserInfo?.providerUserInfo?.[0]?.screenName 
+      user_name: result.user.reloadUserInfo?.providerUserInfo?.[0]?.screenName,
+      ...result,
     };
 
     console.log('user', user)
