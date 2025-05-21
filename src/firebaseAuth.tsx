@@ -26,7 +26,6 @@ const LoginWithGithub = async () => {
       user_name: result.user.reloadUserInfo?.providerUserInfo?.[0]?.screenName,
       ...result,
     };
-
     console.log('user', user)
     const { login } = useAuthStore.getState();
     login(token, user);

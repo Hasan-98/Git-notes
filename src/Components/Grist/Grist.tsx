@@ -3,17 +3,8 @@ import GristGrid from './GristGrid';
 import GristList from './GristList';
 import Pagination from './Pagination';
 import styles from "./Grist.module.css";
+import fetchGists from '../../services/gistService';
 
-const fetchGists = async () => {
-    try {
-        const response = await fetch(`https://api.github.com/gists/public?per_page=50`, {});
-        const data = await response.json();
-        return data;
-    } catch (error) {
-        console.error("Error fetching gists:", error);
-        return [];
-    }
-};
 
 export default function Grist() {
     const [allGists, setAllGists] = useState<any>([]);
@@ -24,7 +15,6 @@ export default function Grist() {
     const pageSize = 8;
     const loadGists = async () => {
         const data = await fetchGists();
-
         const formatted = data.map((gist: any) => ({
             id: gist.id,
             avatarUrl: gist.owner?.avatar_url,

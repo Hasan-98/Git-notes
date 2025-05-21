@@ -1,0 +1,94 @@
+
+.profile-container {
+    display: flex;
+    padding: 2rem;
+    gap: 2rem;
+}
+
+.profile-sidebar {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 200px;
+}   
+
+.profile-avatar {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+}
+
+.profile-name {
+    font-size: 1.2rem;
+    margin: 1rem 0;
+}
+  
+.view-github-profile {
+    background-color: #143b4c;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+  
+.gists-container {
+    flex: 1;
+}
+  
+.gists-heading {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+  
+.gist-count {
+    background-color: #e5e7eb;
+    padding: 2px 8px;
+    border-radius: 9999px;
+    font-size: 0.875rem;
+}
+  
+.gist-card {
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    margin: 1rem 0;
+    padding: 1rem;
+    background-color: #fafafa;
+}
+  
+.gist-meta {
+    margin-top: 1rem;
+}
+  
+.gist-title {
+    display: flex;
+    align-items: center;
+    font-weight: 600;
+    gap: 0.5rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+  
+.gist-name {
+    color: #111827;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 400px;
+}
+  
+.gist-description {
+    color: #6b7280;
+    font-size: 0.875rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+  
+.small-avatar {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+}

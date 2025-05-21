@@ -41,7 +41,7 @@ export default function Header() {
                                     <hr />
                                     <Link to="/profile" state={{ user }}>Your gists</Link>
                                     <a href="#">Starred gists</a>
-                                    <a href={`https://github.com/${user?.user_name}`} target="_blank" rel="noreferrer">Your GitHub profile</a>
+                                    <a href={`https://github.com/${user?.user_name}`}>Your GitHub profile</a>
                                     <a href="#">Help</a>
                                     <button onClick={logout}>Sign out</button>
                                 </div>
