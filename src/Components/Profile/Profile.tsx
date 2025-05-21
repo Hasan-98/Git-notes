@@ -3,41 +3,7 @@ import styles from './Profile.module.css';
 import JsonView from '@uiw/react-json-view';
 import { lightTheme } from '@uiw/react-json-view/light';
 export default function Profile() {
-  const { user } = useLocation().state;
-  const gists = [
-    {
-      description: "Gist Description",
-      files: {
-        "package.json": {
-          content: {
-            name: "vercel-monorepo",
-            version: "1.0.0",
-            private: true,
-            license: "Apache-2.0",
-            packageManager: "pnpm@8.3.1",
-            dependencies: { "tema": "^5.6.2" },
-            devDependencies: {}
-          }
-        }
-      }
-    },
-    {
-      description: "A very long gist name that will overflow if it reaches the end of the container...",
-      files: {
-        "package.json": {
-          content: {
-            name: "vercel-monorepo",
-            version: "1.0.0",
-            private: true,
-            license: "Apache-2.0",
-            packageManager: "pnpm@8.3.1",
-            dependencies: { "tema": "^5.6.2" },
-            devDependencies: {}
-          }
-        }
-      }
-    }
-  ];
+  const { user, gists } = useLocation().state;
   return (
     <div className={styles["profile-container"]}>
       <div className={styles["profile-sidebar"]}>
@@ -52,7 +18,7 @@ export default function Profile() {
         <h2 className={styles["gists-heading"]}>All Gists <span className={styles["gist-count"]}>{gists.length}</span></h2>
         {gists.map((gist: any, index: number) => (
           <div className={styles["gist-card"]} key={index}>
-            <JsonView value={gist.files[Object.keys(gist.files)[0]].content} style={lightTheme} />
+            <JsonView value={gist} style={lightTheme} />
             <div className={styles["gist-meta"]}>
               <p className={styles["gist-title"]}>
                 <img src={user?.avatar_url} className={styles["small-avatar"]} alt="avatar" />

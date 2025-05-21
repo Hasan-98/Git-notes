@@ -35,7 +35,7 @@ export default function Pagination({ currentPage, totalPages, onPageChange }: Pr
         value={currentPage}
         onChange={(e) => {
           const page = parseInt(e.target.value);
-          if (!isNaN(page) && page > 0 && page <= totalPages) {
+          if (page > 0 && page <= totalPages) {
             onPageChange(page);
           }
         }}
