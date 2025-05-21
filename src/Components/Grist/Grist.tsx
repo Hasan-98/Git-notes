@@ -63,7 +63,6 @@ export default function Grist() {
                         value={search}
                         onChange={(e) => {
                             setSearch(e.target.value);
-                            setCurrentPage(1);
                         }}
                         className={styles["search__input"]}
                     />
