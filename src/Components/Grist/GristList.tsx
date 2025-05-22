@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import styles from "./Grist.module.css";
 import { LucideGitFork, LucideStar } from "lucide-react";
-import { starGist, isGistStarred, unStarGist } from "../../services/gistService";
+import { starGist, isGistStarred, unStarGist, forkGist } from "../../services/gistService";
 import useAuthStore from "../../store/authStore";
 
 export default function GristList({ gists }: { gists: any[] }) {
@@ -28,6 +28,19 @@ export default function GristList({ gists }: { gists: any[] }) {
             alert("Gist starred");
         }
     };
+    const handleForkGist = async (gistId: string) => {
+        console.log('================')
+        console.log('in handleForkGist')
+        console.log('isLoggedIn', isLoggedIn)
+        if (!isLoggedIn) {
+            alert("Please login to fork a gist");
+            return;
+        }
+       
+        console.log('forking gist')
+        await forkGist(gistId);
+        alert("Gist forked");
+    };
     return (
         <div className={styles["grist__list"]}>
             <table style={{ width: '100%', borderCollapse: 'collapse' }}>
@@ -53,7 +66,7 @@ export default function GristList({ gists }: { gists: any[] }) {
                             </td>
                             <td><span className={styles["gist__tag"]}>{gist.keyword}</span></td>
                             <td>{formatUpdatedTime(gist.updatedAt)}</td>
-                            <td><button ><LucideGitFork /></button></td>
+                            <td><button onClick={() => handleForkGist(gist.id)} ><LucideGitFork /></button></td>
                             <td><button onClick={() => handleStarGist(gist.id)}><LucideStar /></button></td>
                         </tr>
                     ))}

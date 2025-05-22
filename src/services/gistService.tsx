@@ -78,4 +78,38 @@ const unStarGist = async (gistId: string) => {
     }
 };
 
-export {fetchGists, fetchStarredGists, starGist, isGistStarred, unStarGist};
+const forkGist = async (gistId: string) => {
+    try {
+        const response = await fetch(`https://api.github.com/gists/${gistId}/forks`, {
+            method: "POST",
+            headers: {
+                Authorization: `token ${localStorage.getItem('token')}`,
+            },
+        });
+        if (response.status === 204) {
+            return true;
+        }
+        return false;
+    } catch (error) {
+        console.error("Error forking gist:", error);
+        return null;
+    }
+};
+
+const listGistForks = async (gistId: string) => {
+    try {
+        const response = await fetch(`https://api.github.com/gists/${gistId}/forks`, {
+            headers: {
+                Authorization: `token ${localStorage.getItem('token')}`,
+            },
+        });
+        const data = await response.json();
+        return data;
+    } catch (error) {
+        console.error("Error listing gist forks:", error);
+        return [];
+    }
+};
+
+
+export {fetchGists, fetchStarredGists, starGist, isGistStarred, unStarGist, forkGist, listGistForks};
