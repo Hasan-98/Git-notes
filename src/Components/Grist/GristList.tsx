@@ -1,9 +1,33 @@
 import { Link } from "react-router-dom";
 import styles from "./Grist.module.css";
+import { LucideGitFork, LucideStar } from "lucide-react";
+import { starGist, isGistStarred, unStarGist } from "../../services/gistService";
+import useAuthStore from "../../store/authStore";
 
 export default function GristList({ gists }: { gists: any[] }) {
+    const { isLoggedIn } = useAuthStore();
+     
     const formatUpdatedTime = (date: Date) => "Last updated a few hours ago";
-
+    const handleStarGist = async (gistId: string) => {
+        console.log('================')
+        console.log('in handleStarGist')
+        console.log('isLoggedIn', isLoggedIn)
+        if (!isLoggedIn) {
+            alert("Please login to star a gist");
+            return;
+        }
+        const isStarred = await isGistStarred(gistId);
+        console.log('isStarred', isStarred)
+        if (isStarred) {
+            console.log('unstaring gist')
+            await unStarGist(gistId);
+            alert("Gist unstared");
+        } else {
+            console.log('staring gist')
+            await starGist(gistId);
+            alert("Gist starred");
+        }
+    };
     return (
         <div className={styles["grist__list"]}>
             <table style={{ width: '100%', borderCollapse: 'collapse' }}>
@@ -29,8 +53,8 @@ export default function GristList({ gists }: { gists: any[] }) {
                             </td>
                             <td><span className={styles["gist__tag"]}>{gist.keyword}</span></td>
                             <td>{formatUpdatedTime(gist.updatedAt)}</td>
-                            <td><button>Fork</button></td>
-                            <td><button>Star</button></td>
+                            <td><button ><LucideGitFork /></button></td>
+                            <td><button onClick={() => handleStarGist(gist.id)}><LucideStar /></button></td>
                         </tr>
                     ))}
                 </tbody>

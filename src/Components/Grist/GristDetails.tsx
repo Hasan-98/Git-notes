@@ -3,6 +3,7 @@ import JsonView from '@uiw/react-json-view';
 import { lightTheme } from '@uiw/react-json-view/light';
 import { useLocation } from 'react-router-dom'
 import styles from './GristDetails.module.css';
+import { LucideGitFork, LucideStar } from 'lucide-react';
 export default function GistDetail() {
   const location = useLocation()
   
@@ -28,8 +29,8 @@ export default function GistDetail() {
           </div>
         </div>
         <div className={styles["actions"]}>
-          <button className={styles["btn"]}>Star</button>
-          <button className={styles["btn"]}>Fork</button>
+          <button className={styles["btn"]}><LucideStar /></button>
+          <button className={styles["btn"]}><LucideGitFork /></button>
         </div>
       </div>
     <div className={styles["file-header"]}>

@@ -28,7 +28,9 @@ export default function Header() {
     return (
         <header className={styles.header}>
             <nav className={styles.nav}>
-                <img src={logo} alt="logo" className={styles.logo} />
+                <Link to="/" >
+                    <img src={logo} alt="logo" className={styles.logo} />
+                </Link>
                 {
                     isLoggedIn ? (
                         <div className={styles.profile}>
@@ -43,9 +45,8 @@ export default function Header() {
                                     <div className={styles["dropdown-header"]}>Signed in as <br /><strong>{user?.name}</strong></div>
                                     <hr />
                                     <Link to="/profile" state={{ user, gists }}>Your gists</Link>
-                                    <a href="#">Starred gists</a>
-                                    <a href={`https://github.com/${user?.user_name}`}>Your GitHub profile</a>
-                                    <a href="#">Help</a>
+                                    <Link to="/profile" state={{ user, gists, isStarred: true }}>Starred gists</Link>
+                                    <a href={`https://github.com/${user?.user_name}`} target="_blank">Your GitHub profile</a>
                                     <button onClick={logout}>Sign out</button>
                                 </div>
                             )}

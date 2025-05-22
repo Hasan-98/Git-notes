@@ -3,7 +3,7 @@ import GristGrid from './GristGrid';
 import GristList from './GristList';
 import Pagination from './Pagination';
 import styles from "./Grist.module.css";
-import fetchGists from '../../services/gistService';
+import { fetchGists } from '../../services/gistService';
 import useGistStore from '../../store/gistStore';
 
 
