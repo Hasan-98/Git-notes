@@ -5,7 +5,7 @@ import { lightTheme } from '@uiw/react-json-view/light';
 import { fetchStarredGists } from "../../services/gistService";
 import { useEffect, useState } from "react";
 export default function Profile() {
-  const { user, gists, isStarred } = useLocation().state;
+  const { user, gists ,yourGist, isStarred } = useLocation().state;
   console.log('isStarred in profile', isStarred)
   const [starredGists, setStarredGists] = useState([]);
   useEffect(() => {
@@ -15,6 +15,9 @@ export default function Profile() {
       });
     }
   }, [isStarred]);
+
+  console.log('===========')
+  console.log(yourGist)
   return (
     <div className={styles["profile-container"]}>
       <div className={styles["profile-sidebar"]}>
@@ -27,7 +30,7 @@ export default function Profile() {
       </div>
 
       <div className={styles["gists-container"]}>
-        <h2 className={styles["gists-heading"]}>{isStarred ? "Starred Gists" : "All Gists"} <span className={styles["gist-count"]}>{isStarred ? starredGists.length : gists.length}</span></h2>
+        <h2 className={styles["gists-heading"]}>{isStarred ? "Starred Gists" : "Your Gists"} <span className={styles["gist-count"]}>{isStarred ? starredGists.length : yourGist.length}</span></h2>
 
         {isStarred ? starredGists.map((gist: any, index: number) => (
           <div className={styles["gist-card"]} key={index}>
@@ -41,7 +44,7 @@ export default function Profile() {
               <p className={styles["gist-description"]}>{gist.description || "No description provided."}</p>
             </div>
           </div>
-        )) : gists.map((gist: any, index: number) => (
+        )) : yourGist.map((gist: any, index: number) => (
           <div className={styles["gist-card"]} key={index}>
             <JsonView value={gist} style={lightTheme} />
             <div className={styles["gist-meta"]}>

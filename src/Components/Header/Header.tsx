@@ -8,7 +8,7 @@ import { Link } from 'react-router-dom';
 
 export default function Header() {
     const { isLoggedIn, user, login, logout  } = useAuthStore();
-    const { gists } = useGistStore();
+    const { gists, yourGist } = useGistStore();
     const [dropdownOpen, setDropdownOpen] = useState(false);
 
     const handleLogin = async () => {
@@ -24,6 +24,8 @@ export default function Header() {
     
     console.log('user in header', user);
     console.log('gists in header', gists);
+    console.log('yourGist in header', yourGist);
+    // call useGistStore to get gists
     
     return (
         <header className={styles.header}>
@@ -44,8 +46,9 @@ export default function Header() {
                                 <div className={styles["dropdown-menu"]}>
                                     <div className={styles["dropdown-header"]}>Signed in as <br /><strong>{user?.name}</strong></div>
                                     <hr />
-                                    <Link to="/profile" state={{ user, gists }}>Your gists</Link>
+                                    <Link to="/profile" state={{ user, yourGist }}>Your gists</Link>
                                     <Link to="/profile" state={{ user, gists, isStarred: true }}>Starred gists</Link>
+                                    <Link to="/create-gist">Create Gist</Link>
                                     <a href={`https://github.com/${user?.user_name}`} target="_blank">Your GitHub profile</a>
                                     <button onClick={logout}>Sign out</button>
                                 </div>

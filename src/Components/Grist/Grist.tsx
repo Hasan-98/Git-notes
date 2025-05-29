@@ -3,7 +3,7 @@ import GristGrid from './GristGrid';
 import GristList from './GristList';
 import Pagination from './Pagination';
 import styles from "./Grist.module.css";
-import { fetchGists } from '../../services/gistService';
+import { fetchGists, getGistForUser } from '../../services/gistService';
 import useGistStore from '../../store/gistStore';
 
 
@@ -16,9 +16,12 @@ export default function Grist() {
     const pageSize = 8;
     const loadGists = async () => {
 
-        const { setGists } = useGistStore.getState();
+        const { setGists, setYourGist } = useGistStore.getState();
+        const yourGist = await getGistForUser();
+        setYourGist(yourGist);
         const data = await fetchGists();
         setGists(data);
+
         const formatted = data.map((gist: any) => ({
             id: gist.id,
             avatarUrl: gist.owner?.avatar_url,

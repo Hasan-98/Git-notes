@@ -1,0 +1,192 @@
+.container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 2rem;
+   }
+  
+  .title {
+    font-size: 2rem;
+    font-weight: 600;
+    margin-bottom: 2rem;
+    color: #24292f;
+  }
+  
+  .form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  .inputGroup {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  
+  .descriptionInput {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid #d0d7de;
+    border-radius: 6px;
+    font-size: 1rem;
+    background-color: #ffffff;
+    transition: border-color 0.2s ease;
+  }
+  
+  .descriptionInput:focus {
+    outline: none;
+    border-color: #0969da;
+    box-shadow: 0 0 0 3px rgba(9, 105, 218, 0.1);
+  }
+  
+  .descriptionInput::placeholder {
+    color: #656d76;
+  }
+  
+  .filesSection {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  .fileGroup {
+    border: 1px solid #d0d7de;
+    border-radius: 8px;
+    overflow: hidden;
+    background-color: #ffffff;
+  }
+  
+  .fileHeader {
+    display: flex;
+    align-items: center;
+    background-color: #f6f8fa;
+    border-bottom: 1px solid #d0d7de;
+    padding: 0.5rem;
+  }
+  
+  .filenameInput {
+    flex: 1;
+    padding: 0.5rem 0.75rem;
+    border: 1px solid #d0d7de;
+    border-radius: 4px;
+    font-size: 0.875rem;
+    background-color: #ffffff;
+    transition: border-color 0.2s ease;
+  }
+  
+  .filenameInput:focus {
+    outline: none;
+    border-color: #0969da;
+    box-shadow: 0 0 0 2px rgba(9, 105, 218, 0.1);
+  }
+  
+  .filenameInput::placeholder {
+    color: #656d76;
+  }
+  
+  .deleteButton {
+    margin-left: 0.5rem;
+    padding: 0.25rem 0.5rem;
+    background: none;
+    border: none;
+    cursor: pointer;
+    border-radius: 4px;
+    font-size: 1rem;
+    transition: background-color 0.2s ease;
+  }
+  
+  .deleteButton:hover {
+    background-color: #f3f4f6;
+  }
+  
+  .deleteButton:active {
+    background-color: #e5e7eb;
+  }
+  
+  .contentTextarea {
+    width: 100%;
+    padding: 1rem;
+    border: none;
+    resize: vertical;
+    font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+    font-size: 0.875rem;
+    line-height: 1.5;
+    background-color: #ffffff;
+    min-height: 200px;
+  }
+  
+  .contentTextarea:focus {
+    outline: none;
+    background-color: #ffffff;
+  }
+  
+  .contentTextarea::placeholder {
+    color: #656d76;
+    font-family: inherit;
+  }
+  
+  .actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 1rem;
+  }
+  
+  .addFileButton {
+    padding: 0.5rem 1rem;
+    background-color: #f6f8fa;
+    border: 1px solid #d0d7de;
+    border-radius: 6px;
+    color: #24292f;
+    font-size: 0.875rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+  
+  .addFileButton:hover {
+    background-color: #f3f4f6;
+    border-color: #afb8c1;
+  }
+  
+  .addFileButton:active {
+    background-color: #e5e7eb;
+  }
+  
+  .createButton {
+    padding: 0.75rem 1.5rem;
+    background-color: #143b4c;
+    border: 1px solid #143b4c;
+    border-radius: 6px;
+    color: white;
+    font-size: 0.875rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    min-width: 120px;
+  }
+  
+  .createButton:hover:not(:disabled) {
+    background-color: #1a7f37;
+    border-color: #1a7f37;
+  }
+  
+  .createButton:active:not(:disabled) {
+    background-color: #166f2c;
+  }
+  
+  .createButton:disabled {
+    background-color: #94d3a2;
+    border-color: #94d3a2;
+    cursor: not-allowed;
+    opacity: 0.6;
+  }
+  
+  .error {
+    color: #cf222e;
+    font-size: 0.875rem;
+    margin-top: 0.25rem;
+    display: block;
+  }
+  
