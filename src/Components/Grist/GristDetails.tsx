@@ -4,11 +4,48 @@ import { lightTheme } from '@uiw/react-json-view/light';
 import { useLocation } from 'react-router-dom'
 import styles from './GristDetails.module.css';
 import { LucideGitFork, LucideStar } from 'lucide-react';
+import { starGist, isGistStarred, unStarGist, forkGist } from '../../services/gistService';
+import useAuthStore from '../../store/authStore';
 export default function GistDetail() {
   const location = useLocation()
+  const { isLoggedIn } = useAuthStore();
+  const handleStarGist = async (gistId: string) => {
+    console.log('================')
+    console.log('in handleStarGist')
+    console.log('isLoggedIn', isLoggedIn)
+    if (!isLoggedIn) {
+        alert("Please login to star a gist");
+        return;
+    }
+    const isStarred = await isGistStarred(gistId);
+    console.log('isStarred', isStarred)
+    if (isStarred) {
+        console.log('unstaring gist')
+        await unStarGist(gistId);
+        alert("Gist unstared");
+    } else {
+        console.log('staring gist')
+        await starGist(gistId);
+        alert("Gist starred");
+    }
+}
+
+const handleForkGist = async (gistId: string) => {
+    console.log('================')
+    console.log('in handleForkGist')
+    console.log('isLoggedIn', isLoggedIn)
+    if (!isLoggedIn) {
+        alert("Please login to fork a gist");
+        return;
+    }
+   
+    console.log('forking gist')
+    await forkGist(gistId);
+    alert("Gist forked");
+}
   
   console.log(location.state.gist)
-
+// need to show the count in the star and fork button
   return (
     <div className={styles["gist-content"]}>
       <div className={styles["gist-header"]}>
@@ -29,8 +66,8 @@ export default function GistDetail() {
           </div>
         </div>
         <div className={styles["actions"]}>
-          <button className={styles["btn"]}><LucideStar /></button>
-          <button className={styles["btn"]}><LucideGitFork /></button>
+          <button className={styles["btn"]} onClick={() => handleStarGist(location.state.gist.id)}><LucideStar />Star {33}</button>
+          <button className={styles["btn"]} onClick={() => handleForkGist(location.state.gist.id)}><LucideGitFork />Fork {5}</button>
         </div>
       </div>
     <div className={styles["file-header"]}>

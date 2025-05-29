@@ -110,6 +110,11 @@ const listGistForks = async (gistId: string) => {
         return [];
     }
 };
+const getForkCount = async (gistId: string) => {
+    const res = await fetch(`https://api.github.com/gists/${gistId}/forks`);
+    const data = await res.json();
+    return data.length;
+};
 
 
-export {fetchGists, fetchStarredGists, starGist, isGistStarred, unStarGist, forkGist, listGistForks};
+export {fetchGists, fetchStarredGists, starGist, isGistStarred, unStarGist, forkGist, listGistForks, getForkCount};
