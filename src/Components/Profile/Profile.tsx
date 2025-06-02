@@ -4,9 +4,11 @@ import JsonView from '@uiw/react-json-view';
 import { lightTheme } from '@uiw/react-json-view/light';
 import { fetchStarredGists } from "../../services/gistService";
 import { useEffect, useState } from "react";
+import useGistStore from "../../store/gistStore";
 export default function Profile() {
-  const { user, gists ,yourGist, isStarred } = useLocation().state;
+  const { user, isStarred } = useLocation().state;
   console.log('isStarred in profile', isStarred)
+  const { gists, yourGist } = useGistStore();
   const [starredGists, setStarredGists] = useState([]);
   useEffect(() => {
     if (isStarred) {

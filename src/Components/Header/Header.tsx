@@ -46,8 +46,8 @@ export default function Header() {
                                 <div className={styles["dropdown-menu"]}>
                                     <div className={styles["dropdown-header"]}>Signed in as <br /><strong>{user?.name}</strong></div>
                                     <hr />
-                                    <Link to="/profile" state={{ user, yourGist }}>Your gists</Link>
-                                    <Link to="/profile" state={{ user, gists, isStarred: true }}>Starred gists</Link>
+                                    <Link to="/profile" state={{ user }}>Your gists</Link>
+                                    <Link to="/profile" state={{ user, isStarred: true }}>Starred gists</Link>
                                     <Link to="/create-gist">Create Gist</Link>
                                     <a href={`https://github.com/${user?.user_name}`} target="_blank">Your GitHub profile</a>
                                     <button onClick={logout}>Sign out</button>
