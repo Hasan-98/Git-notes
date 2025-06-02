@@ -96,6 +96,7 @@ const forkGist = async (gistId: string) => {
     }
 };
 
+
 const listGistForks = async (gistId: string) => {
     try {
         const response = await fetch(`https://api.github.com/gists/${gistId}/forks`, {
@@ -110,11 +111,22 @@ const listGistForks = async (gistId: string) => {
         return [];
     }
 };
-const getForkCount = async (gistId: string) => {
-    const res = await fetch(`https://api.github.com/gists/${gistId}/forks`);
-    const data = await res.json();
-    return data.length;
-};
+
+// need similar api for listGistStars 
+const listGistStars = async () => {
+    try {
+        const response = await fetch(`https://api.github.com/gists/starred`, {
+            headers: {
+                Authorization: `token ${localStorage.getItem('token')}`,
+            },
+        });
+        const data = await response.json();
+        return data;
+    } catch (error) {
+        console.error("Error listing gist stars:", error);
+        return [];
+    }
+}
 
 const createGist = async (gist: any) => {   
     try {
@@ -149,4 +161,4 @@ const getGistForUser = async () => {
     }
 }
 
-export {fetchGists, fetchStarredGists, starGist, isGistStarred, unStarGist, forkGist, listGistForks, getForkCount, createGist, getGistForUser};
+export {fetchGists, fetchStarredGists, starGist, isGistStarred, unStarGist, forkGist, listGistForks, createGist, getGistForUser, listGistStars};

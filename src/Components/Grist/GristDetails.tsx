@@ -4,10 +4,24 @@ import { lightTheme } from '@uiw/react-json-view/light';
 import { useLocation } from 'react-router-dom'
 import styles from './GristDetails.module.css';
 import { LucideGitFork, LucideStar } from 'lucide-react';
-import { starGist, isGistStarred, unStarGist, forkGist } from '../../services/gistService';
+import { starGist, isGistStarred, unStarGist, forkGist, listGistForks, listGistStars } from '../../services/gistService';
 import useAuthStore from '../../store/authStore';
+import { useEffect, useState } from 'react';
 export default function GistDetail() {
   const location = useLocation()
+  const [forkCount, setForkCount] = useState(0);
+  const [starCount, setStarCount] = useState(0);
+    useEffect(() => {
+    listGistForks(location.state.gist.id).then((res) => {
+      console.log('forks------------------', res.length)
+      setForkCount(res.length);
+    });
+    listGistStars().then((res) => {
+      console.log('stars------------------', res.length)
+      setStarCount(res.length);
+    });
+  }, []);
+
   const { isLoggedIn } = useAuthStore();
   const handleStarGist = async (gistId: string) => {
     console.log('================')
@@ -66,8 +80,8 @@ const handleForkGist = async (gistId: string) => {
           </div>
         </div>
         <div className={styles["actions"]}>
-          <button className={styles["btn"]} onClick={() => handleStarGist(location.state.gist.id)}><LucideStar />Star {33}</button>
-          <button className={styles["btn"]} onClick={() => handleForkGist(location.state.gist.id)}><LucideGitFork />Fork {5}</button>
+          <button className={styles["btn"]} onClick={() => handleStarGist(location.state.gist.id)}><LucideStar />Star {starCount}</button>
+          <button className={styles["btn"]} onClick={() => handleForkGist(location.state.gist.id)}><LucideGitFork />Fork {forkCount}</button>
         </div>
       </div>
     <div className={styles["file-header"]}>
