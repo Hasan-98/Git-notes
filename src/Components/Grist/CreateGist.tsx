@@ -32,15 +32,13 @@ export default function CreateGist() {
         }
 
         try {
-            // Transform data to match GitHub Gist API format
             const gistData = {
                 description: data.description,
-                public: true, // You can make this configurable
+                public: true,
                 files: {}
             };
 
-            // Convert files array to GitHub API format
-            data.files.forEach(file => {
+            data.files.forEach((file: any) => {
                 if (file.filename && file.content) {
                     gistData.files[file.filename] = {
                         content: file.content
@@ -52,7 +50,6 @@ export default function CreateGist() {
             const res = await createGist(gistData);
             console.log("Gist created:", res);
             
-            // Reset form on success
             reset();
             alert("Gist created successfully!");
         } catch (error) {
