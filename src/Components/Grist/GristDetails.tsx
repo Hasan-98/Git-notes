@@ -14,7 +14,7 @@ export default function GistDetail() {
     useEffect(() => {
     listGistForks(location.state.gist.id).then((res) => {
       console.log('forks------------------', res.length)
-      setForkCount(res.length);
+      setForkCount(res.length) ;
     });
     listGistStars().then((res) => {
       console.log('stars------------------', res.length)
@@ -36,10 +36,12 @@ export default function GistDetail() {
     if (isStarred) {
         console.log('unstaring gist')
         await unStarGist(gistId);
+        setStarCount((prev) => prev - 1)
         alert("Gist unstared");
     } else {
         console.log('staring gist')
         await starGist(gistId);
+        setStarCount((prev) => prev + 1)
         alert("Gist starred");
     }
 }
@@ -52,9 +54,15 @@ const handleForkGist = async (gistId: string) => {
         alert("Please login to fork a gist");
         return;
     }
-   
+    const forks = await listGistForks(gistId);
+    console.log('forks', forks)
+    if (forks.some((fork: any) => fork.owner.login === localStorage.getItem('user_name'))) {
+        alert("You have already forked this gist");
+        return;
+    }
     console.log('forking gist')
     await forkGist(gistId);
+    setForkCount((prev) => prev + 1)
     alert("Gist forked");
 }
   
