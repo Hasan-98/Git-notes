@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import styles from "./Grist.module.css";
 import { LucideGitFork, LucideStar } from "lucide-react";
-import { starGist, isGistStarred, unStarGist, forkGist } from "../../services/gistService";
+import { starGist, isGistStarred, unStarGist, forkGist, listGistForks } from "../../services/gistService";
 import useAuthStore from "../../store/authStore";
 
 export default function GristList({ gists }: { gists: any[] }) {
@@ -34,6 +34,12 @@ export default function GristList({ gists }: { gists: any[] }) {
         console.log('isLoggedIn', isLoggedIn)
         if (!isLoggedIn) {
             alert("Please login to fork a gist");
+            return;
+        }
+        const forks = await listGistForks(gistId);
+        console.log('forks', forks)
+        if (forks.some((fork: any) => fork.owner.login === localStorage.getItem('user_name'))) {
+            alert("You have already forked this gist");
             return;
         }
        
