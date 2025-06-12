@@ -1,22 +1,37 @@
-import { useLocation } from "react-router-dom";
+
 import styles from './Profile.module.css';
 import JsonView from '@uiw/react-json-view';
 import { lightTheme } from '@uiw/react-json-view/light';
-import { fetchStarredGists } from "../../services/gistService";
+import { fetchStarredGists, getGistForUser } from "../../services/gistService";
 import { useEffect, useState } from "react";
 import useGistStore from "../../store/gistStore";
-export default function Profile() {
-  const { user, isStarred } = useLocation().state;
+import useAuthStore from "../../store/authStore";
+export default function Profile({isStarred}: {isStarred: boolean}) {
+  
+  const { user } = useAuthStore() as any;
+  
   console.log('isStarred in profile', isStarred)
-  const { gists, yourGist } = useGistStore();
+  const { yourGist, setYourGist } = useGistStore() as any;
+  
   const [starredGists, setStarredGists] = useState([]);
   useEffect(() => {
-    if (isStarred) {
-      fetchStarredGists().then((data) => {
-        setStarredGists(data);
-      });
+    const loadGists = async () => {
+      const data = await getGistForUser()
+      setYourGist(data);
     }
-  }, [isStarred]);
+    loadGists();
+  }, []);
+  useEffect(() => {
+    if (isStarred) {
+    const loadStarredGists = async () => {
+      const data = await fetchStarredGists()
+      setStarredGists(data);
+    }
+    console.log('loading starred gists')
+    console.log('isStarred', isStarred)
+    loadStarredGists();
+    }
+  }, []);
 
   console.log('===========')
   console.log(yourGist)
@@ -46,7 +61,7 @@ export default function Profile() {
               <p className={styles["gist-description"]}>{gist.description || "No description provided."}</p>
             </div>
           </div>
-        )) : yourGist.map((gist: any, index: number) => (
+        )) : yourGist?.map((gist: any, index: number) => (
           <div className={styles["gist-card"]} key={index}>
             <JsonView value={gist} style={lightTheme} />
             <div className={styles["gist-meta"]}>

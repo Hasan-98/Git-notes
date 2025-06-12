@@ -31,10 +31,11 @@ const isGistStarred = async (gistId: string) => {
                 Authorization: `token ${localStorage.getItem('token')}`,
             },
             });
-            if (response.status === 204) {
-                return true;
-            } else {
+            console.log('response.status.......', response)
+            if (response.status === 404) {
                 return false;
+            } else if (response.status === 204) {
+                return true;
             }
     } catch (error) {
         console.error("Error starring gist:", error);
@@ -68,6 +69,7 @@ const unStarGist = async (gistId: string) => {
                 Authorization: `token ${localStorage.getItem('token')}`,
             },
         });
+
         if (response.status === 204) {
             return true;
         }

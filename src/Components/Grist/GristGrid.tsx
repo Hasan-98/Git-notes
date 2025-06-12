@@ -5,10 +5,12 @@ import { lightTheme } from '@uiw/react-json-view/light'
 import { LucideGitFork, LucideStar } from "lucide-react";
 import { starGist, isGistStarred, unStarGist, forkGist, listGistForks } from "../../services/gistService";
 import useAuthStore from "../../store/authStore";
-
+import { useState } from "react";
 export default function GristGrid({ gists }: { gists: any[] }) {
     const formatUpdatedTime = (date: Date) => "Last updated a few hours ago";
     const { isLoggedIn } = useAuthStore();
+    const [starCount, setStarCount] = useState(0);
+    const [forkCount, setForkCount] = useState(0);
     const handleStarGist = async (gistId: string) => {
         console.log('================')
         console.log('in handleStarGist')
@@ -22,10 +24,12 @@ export default function GristGrid({ gists }: { gists: any[] }) {
         if (isStarred) {
             console.log('unstaring gist')
             await unStarGist(gistId);
+            setStarCount((prev) => prev - 1)
             alert("Gist unstared");
         } else {
             console.log('staring gist')
             await starGist(gistId);
+            setStarCount((prev) => prev + 1)
             alert("Gist starred");
         }
     };
@@ -46,6 +50,7 @@ export default function GristGrid({ gists }: { gists: any[] }) {
        
         console.log('forking gist')
         await forkGist(gistId);
+        setForkCount((prev) => prev + 1)
         alert("Gist forked");
     };
 

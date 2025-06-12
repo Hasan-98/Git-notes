@@ -12,6 +12,7 @@ function App() {
         <Route path="/" element={<Grist />} />
         <Route path="/gist/:id" element={<GistDetail />} />
         <Route path="/profile" element={<Profile />} />
+        <Route path="/starred-gists" element={<Profile isStarred={true} />} />
         <Route path="/create-gist" element={<CreateGist />} />
       </Routes>
     </>

@@ -3,10 +3,12 @@ import styles from "./Grist.module.css";
 import { LucideGitFork, LucideStar } from "lucide-react";
 import { starGist, isGistStarred, unStarGist, forkGist, listGistForks } from "../../services/gistService";
 import useAuthStore from "../../store/authStore";
+import { useState } from "react";
 
 export default function GristList({ gists }: { gists: any[] }) {
     const { isLoggedIn } = useAuthStore();
-     
+    const [starCount, setStarCount] = useState(0);
+    const [forkCount, setForkCount] = useState(0);
     const formatUpdatedTime = (date: Date) => "Last updated a few hours ago";
     const handleStarGist = async (gistId: string) => {
         console.log('================')
@@ -17,15 +19,17 @@ export default function GristList({ gists }: { gists: any[] }) {
             return;
         }
         const isStarred = await isGistStarred(gistId);
-        console.log('isStarred', isStarred)
+        console.log('isStarred333333333333', isStarred)
         if (isStarred) {
             console.log('unstaring gist')
             await unStarGist(gistId);
+            setStarCount((prev) => prev - 1)
             alert("Gist unstared");
         } else {
             console.log('staring gist')
             await starGist(gistId);
             alert("Gist starred");
+            setStarCount((prev) => prev + 1)
         }
     };
     const handleForkGist = async (gistId: string) => {
@@ -46,6 +50,7 @@ export default function GristList({ gists }: { gists: any[] }) {
         console.log('forking gist')
         await forkGist(gistId);
         alert("Gist forked");
+        setForkCount((prev) => prev + 1)
     };
     return (
         <div className={styles["grist__list"]}>

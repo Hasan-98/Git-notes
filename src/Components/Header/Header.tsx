@@ -10,7 +10,6 @@ export default function Header() {
     const { isLoggedIn, user, login, logout  } = useAuthStore();
     const { gists, yourGist } = useGistStore();
     const [dropdownOpen, setDropdownOpen] = useState(false);
-
     const handleLogin = async () => {
         try {
             const result = await LoginWithGithub();
@@ -25,7 +24,6 @@ export default function Header() {
     console.log('user in header', user);
     console.log('gists in header', gists);
     console.log('yourGist in header', yourGist);
-    // call useGistStore to get gists
     
     return (
         <header className={styles.header}>
@@ -46,8 +44,8 @@ export default function Header() {
                                 <div className={styles["dropdown-menu"]}>
                                     <div className={styles["dropdown-header"]}>Signed in as <br /><strong>{user?.name}</strong></div>
                                     <hr />
-                                    <Link to="/profile" state={{ user }}>Your gists</Link>
-                                    <Link to="/profile" state={{ user, isStarred: true }}>Starred gists</Link>
+                                    <Link to="/profile">Your gists</Link>
+                                    <Link to="/starred-gists" state={{isStarred: true }}>Starred gists</Link>
                                     <Link to="/create-gist">Create Gist</Link>
                                     <a href={`https://github.com/${user?.user_name}`} target="_blank">Your GitHub profile</a>
                                     <button onClick={logout}>Sign out</button>
